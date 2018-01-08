@@ -1,0 +1,63 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+    <div class="row divider green">
+        <div class="col-md-12"></div>
+    </div>
+    <div class="row banner subgenre">
+        <div class="col-md-1"></div>
+        <div class="col-md-11 padding-none">
+            <h1>Genres</h1>
+        </div>
+    </div>
+    <div class="row divider blue">
+        <div class="col-md-12"></div>
+    </div>
+
+<div class = 'flash'>
+              {% with messages = get_flashed_messages() %}
+      {% if messages %}
+
+        <ul>
+        {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+
+</div>
+
+    <div class="row padding-top padding-bottom">
+        <div class="col-md-1"></div>
+        <div class="col-md-10 padding-none">
+            <a href="{{url_for('newGenre')}}">
+                <button class="btn btn-default" id="new-genre">
+                    <span class="glyphicon glyphicon-music" aria-hidden="true"></span>Add Genre
+                </button>
+            </a>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    {% for genre in genres %}
+        <a href = "{{url_for('genreSubgenre', genre_id = genre.id)}}">
+            <div class="row">
+                <div class="col-md-1"></div>
+                    <div class="col-md-10 genre-list">
+                        <h2>{{genre.name}}</h2>
+                        <a href="{{url_for('editGenre', genre_id = genre.id)}}">
+                            <button class="btn btn-default" id="edit-genre">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>Edit Genre
+                            </button>
+                        </a>
+                        <a href="{{url_for('deleteGenre', genre_id = genre.id)}}">
+                            <button class="btn btn-default" id="delete-genre">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>Delete Genre
+                            </button>
+                        </a>
+                    </div>
+                <div class="col-md-1"></div>
+            </div>
+        </a>
+    {% endfor %}
+{% endblock %}
